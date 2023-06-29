@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import { useParams, Link } from "react-router-dom";
+import axios from "axios";
 
 export default function SingleCocktail() {
   const { id } = useParams();
@@ -11,10 +12,10 @@ export default function SingleCocktail() {
     setLoading(true);
     async function getCocktail() {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
         );
-        const data = await response.json();
+        const data = response.data;
         if (data.drinks) {
           const {
             strDrink: name,
